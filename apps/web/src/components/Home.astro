@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { ui, brand, monogram, type Lang } from "../i18n/ui";
+import { ui, brand, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
@@ -47,11 +47,8 @@ const altPath = altLang === "en" ? "/" : "/hu/";
           <p class="sign" aria-hidden="true">{t.hero.sign}</p>
         </div>
         <figure class="portrait">
-          <!-- Replace the placeholder block below with a real photo:
-               drop agoston.jpg in apps/web/public/ and swap in:
-               <img src="/agoston.jpg" alt={t.hero.portraitCaption} /> -->
           <div class="portrait-frame">
-            <span class="portrait-monogram">{monogram}</span>
+            <img src="/agoston.webp" alt={t.hero.portraitCaption} width="560" height="560" />
           </div>
           <figcaption>{t.hero.portraitCaption}</figcaption>
         </figure>
@@ -138,7 +135,7 @@ const altPath = altLang === "en" ? "/" : "/hu/";
       <div class="container about-inner">
         <figure class="portrait small">
           <div class="portrait-frame">
-            <span class="portrait-monogram">{monogram}</span>
+            <img src="/agoston.webp" alt={t.about.title} width="560" height="560" />
           </div>
         </figure>
         <div>
@@ -298,13 +295,7 @@ const altPath = altLang === "en" ? "/" : "/hu/";
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .portrait-monogram {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(3rem, 7vw, 5rem);
-    color: var(--accent);
-    opacity: 0.85;
+    display: block;
   }
   .portrait figcaption {
     font-family: var(--font-mono);
