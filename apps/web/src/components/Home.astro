@@ -1,0 +1,424 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ui, brand, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+
+// English serves from "/", Hungarian from "/hu/".
+const homePath = lang === "en" ? "/" : "/hu/";
+const altLang: Lang = lang === "en" ? "hu" : "en";
+const altPath = altLang === "en" ? "/" : "/hu/";
+---
+
+<Layout title={t.meta.title} description={t.meta.description} lang={t.htmlLang}>
+  <!-- Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href={homePath}>{brand}</a>
+      <nav class="nav-links">
+        <a href="#problem">{t.nav.problem}</a>
+        <a href="#method">{t.nav.method}</a>
+        <a href="#work">{t.nav.work}</a>
+      </nav>
+      <div class="lang-switch" aria-label="Language">
+        <span class="lang-current">{lang.toUpperCase()}</span>
+        <a href={altPath} hreflang={altLang}>{altLang.toUpperCase()}</a>
+      </div>
+      <a class="btn primary nav-cta" href="#contact">{t.nav.cta}</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{t.hero.eyebrow}</p>
+        <h1>
+          {t.hero.line1}<br />{t.hero.line2}<br />
+          <span class="grad">{t.hero.line3}</span>
+        </h1>
+        <p class="lede" set:html={t.hero.lede} />
+        <div class="cta-row">
+          <a class="btn primary" href="#contact">{t.hero.ctaPrimary}</a>
+          <a class="btn" href="#method">{t.hero.ctaSecondary}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section id="problem" class="section">
+      <div class="container">
+        <p class="eyebrow">{t.problem.eyebrow}</p>
+        <h2 class="section-title">{t.problem.title}</h2>
+        <div class="grid-3">
+          {
+            t.problem.items.map((p) => (
+              <article class="card">
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Method -->
+    <section id="method" class="section alt">
+      <div class="container">
+        <p class="eyebrow">{t.method.eyebrow}</p>
+        <h2 class="section-title">{t.method.title}</h2>
+        <p class="section-lede">{t.method.lede}</p>
+
+        <h3 class="sub">{t.method.loopSub}</h3>
+        <ol class="loop">
+          {
+            t.method.loop.map(([step, desc], i) => (
+              <li class="loop-step">
+                <span class="loop-num">{i + 1}</span>
+                <span class="loop-name">{step}</span>
+                <span class="loop-desc">{desc}</span>
+              </li>
+            ))
+          }
+        </ol>
+
+        <h3 class="sub">{t.method.ladderSub}</h3>
+        <div class="ladder">
+          {
+            t.method.levels.map(([lvl, name, desc]) => (
+              <div class="rung">
+                <span class="rung-lvl">{lvl}</span>
+                <div>
+                  <strong>{name}</strong>
+                  <p>{desc}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Engagements -->
+    <section id="work" class="section">
+      <div class="container">
+        <p class="eyebrow">{t.work.eyebrow}</p>
+        <h2 class="section-title">{t.work.title}</h2>
+        <div class="grid-3">
+          {
+            t.work.items.map((e) => (
+              <article class="card engagement">
+                <span class="tag">{e.tag}</span>
+                <h3>{e.name}</h3>
+                <p class="span">{e.span}</p>
+                <p>{e.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section alt">
+      <div class="container about">
+        <p class="eyebrow">{t.about.eyebrow}</p>
+        <h2 class="section-title">{t.about.title}</h2>
+        <p class="section-lede" set:html={t.about.body} />
+      </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section id="contact" class="section cta-section">
+      <div class="container">
+        <h2 class="section-title">{t.contact.title}</h2>
+        <p class="section-lede center">{t.contact.lede}</p>
+        <div class="cta-row center">
+          <a class="btn primary" href="mailto:afung@ancestralize.com"
+            >{t.contact.cta}</a
+          >
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© {new Date().getFullYear()} {brand}</span>
+      <span class="footer-note">{t.footer.note}</span>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    height: 4rem;
+  }
+  .brand {
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+    font-size: 0.95rem;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .nav-links a:hover {
+    color: var(--fg);
+  }
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .lang-switch .lang-current {
+    color: var(--fg);
+  }
+  .lang-switch a {
+    color: var(--faint);
+    text-decoration: none;
+  }
+  .lang-switch a:hover {
+    color: var(--accent);
+  }
+  .nav-cta {
+    padding: 0.5rem 1rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: clamp(4rem, 12vw, 8rem) 0 clamp(3rem, 8vw, 6rem);
+    background:
+      radial-gradient(
+        60rem 30rem at 70% -10%,
+        rgba(109, 158, 255, 0.16),
+        transparent 60%
+      ),
+      radial-gradient(
+        40rem 24rem at 0% 10%,
+        rgba(155, 125, 255, 0.12),
+        transparent 55%
+      );
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6.5vw, 4.25rem);
+    margin: 0.75rem 0 1.25rem;
+  }
+  .grad {
+    background: linear-gradient(120deg, #fff, var(--accent) 60%, var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lede {
+    max-width: 40rem;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+  .lede :global(em) {
+    color: var(--fg);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .cta-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .cta-row.center {
+    justify-content: center;
+  }
+
+  /* Sections */
+  .section {
+    padding: clamp(3.5rem, 9vw, 6.5rem) 0;
+    border-top: 1px solid var(--border);
+  }
+  .section.alt {
+    background: var(--bg-soft);
+  }
+  .section-title {
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    margin: 0.6rem 0 0;
+  }
+  .section-lede {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 44rem;
+    margin-top: 1rem;
+  }
+  .section-lede :global(strong) {
+    color: var(--fg);
+  }
+  .section-lede.center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  /* Cards */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+  .card p {
+    color: var(--muted);
+  }
+  .engagement .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .engagement .span {
+    color: var(--faint);
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0.9rem;
+  }
+
+  /* Loop */
+  .sub {
+    font-size: 1.05rem;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 3rem 0 1.25rem;
+  }
+  .loop {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem;
+  }
+  .loop-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .loop-num {
+    width: 1.9rem;
+    height: 1.9rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(109, 158, 255, 0.15);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .loop-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .loop-desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* Ladder */
+  .ladder {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .rung {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+  .rung-lvl {
+    font-weight: 800;
+    color: var(--accent);
+    min-width: 2rem;
+  }
+  .rung strong {
+    display: block;
+  }
+  .rung p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.15rem;
+  }
+
+  /* CTA + footer */
+  .cta-section {
+    text-align: center;
+    background:
+      radial-gradient(
+        50rem 24rem at 50% 120%,
+        rgba(155, 125, 255, 0.14),
+        transparent 60%
+      );
+  }
+  .cta-section .section-title {
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: var(--faint);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 720px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

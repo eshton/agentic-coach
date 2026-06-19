@@ -4,4 +4,12 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
+  i18n: {
+    locales: ["en", "hu"],
+    defaultLocale: "en",
+    routing: {
+      // English serves from "/", Hungarian from "/hu/".
+      prefixDefaultLocale: false,
+    },
+  },
 });

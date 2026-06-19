@@ -2,21 +2,27 @@
 interface Props {
   title?: string;
   description?: string;
+  lang?: string;
 }
 
 const {
-  title = "Agentic Coach",
-  description = "Agentic Coach — your AI-powered coaching companion.",
+  title = "Agentic Coach — Turn AI adoption into engineering velocity",
+  description =
+    "Most teams bought the AI tools but never moved the velocity chart. I help engineering organizations close the gap between AI adoption and real, measurable impact.",
+  lang = "en",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
@@ -27,14 +33,25 @@ const {
 
 <style is:global>
   :root {
-    --bg: #0b0d12;
-    --fg: #e7e9ee;
-    --muted: #99a0ad;
+    --bg: #0a0c11;
+    --bg-soft: #11141c;
+    --surface: #151926;
+    --border: rgba(255, 255, 255, 0.09);
+    --fg: #eef0f5;
+    --muted: #9aa2b1;
+    --faint: #6b7385;
     --accent: #6d9eff;
+    --accent-2: #9b7dff;
+    --max: 72rem;
+    --pad: clamp(1.25rem, 4vw, 2.5rem);
   }
 
   * {
     box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   html,
@@ -44,7 +61,6 @@ const {
   }
 
   body {
-    min-height: 100dvh;
     background: var(--bg);
     color: var(--fg);
     font-family:
@@ -52,5 +68,65 @@ const {
       Arial, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .container {
+    width: 100%;
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 600;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    color: #06080d;
+    border-color: var(--accent);
+  }
+
+  .btn.primary:hover {
+    background: #82adff;
   }
 </style>
