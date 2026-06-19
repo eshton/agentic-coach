@@ -6,69 +6,73 @@ export const languages = {
 export type Lang = keyof typeof languages;
 export const defaultLang: Lang = "en";
 
-/** All site copy, keyed by locale. Brand name stays constant across locales. */
-export const brand = "Agentic Coach";
+/** Constant across locales. */
+export const brand = "Agoston Fung";
+export const monogram = "ÁF";
 
+/** All site copy, keyed by locale. */
 export const ui = {
   en: {
     htmlLang: "en",
     meta: {
-      title: "Agentic Coach — Turn AI adoption into engineering velocity",
+      title: "Agoston Fung — Agentic engineering for teams",
       description:
-        "Most teams bought the AI tools but never moved the velocity chart. I help engineering organizations close the gap between AI adoption and real, measurable impact.",
+        "I help engineering teams turn the AI tools they already bought into velocity they can measure.",
     },
     nav: {
-      problem: "The problem",
-      method: "The method",
+      problem: "What I find",
+      method: "How I work",
       work: "Work with me",
-      cta: "Book a readiness call",
+      cta: "Book a call",
     },
     hero: {
-      eyebrow: "Agentic engineering for teams",
-      line1: "Your team adopted AI.",
-      line2: "Your velocity didn’t move.",
-      line3: "I fix that.",
-      lede: "Most engineering orgs bought the tools and never changed how they work. I help teams close the gap between AI <em>adoption</em> and real, measurable <em>impact</em> — with the velocity and quality data to prove it.",
+      eyebrow: "Agentic engineering · London",
+      headline:
+        "I help engineering teams turn the AI tools they already bought into velocity you can <mark>measure</mark>.",
+      subhead:
+        "I’m Agoston. I spend a few weeks embedded with your team, rebuild how you work with coding agents, and leave you faster — with the numbers to prove it.",
       ctaPrimary: "Book a readiness call",
-      ctaSecondary: "See the method",
+      ctaSecondary: "See how I work",
+      sign: "Agoston",
+      portraitCaption: "Agoston Fung — London",
     },
     problem: {
-      eyebrow: "The problem",
-      title: "The tools showed up. The transformation didn’t.",
+      eyebrow: "What I usually find",
+      title: "The tools arrived. The change didn’t.",
       items: [
         {
-          title: "Adoption ≠ impact",
-          body: "Every engineer has Copilot or Cursor open. The velocity chart looks exactly like it did last year. The tools got bought; the workflow never changed.",
+          title: "Tools everywhere, gains nowhere",
+          body: "Everyone has Copilot or Cursor open. The velocity chart looks like last year’s. You bought tools; nobody changed how the team actually works.",
         },
         {
-          title: "Quality drifts",
-          body: "Agent-generated code lands faster than anyone can review it well. Subtle defects, inconsistent patterns, and review fatigue creep in unnoticed.",
+          title: "Quality slips quietly",
+          body: "Agent code lands faster than anyone can review it well. Small defects and inconsistent patterns pile up exactly where no one is looking.",
         },
         {
-          title: "Everyone improvises",
-          body: "Your strongest engineers have figured out private tricks. None of it is shared, measured, or repeatable across the team.",
+          title: "Your best people improvise alone",
+          body: "Your strongest engineers have private tricks that genuinely work. None of it is written down, measured, or shared with the rest of the team.",
         },
       ],
     },
     method: {
-      eyebrow: "The method",
-      title: "A repeatable system, not a pep talk.",
-      lede: "Every engagement runs on two simple models: a loop your engineers run daily, and a maturity ladder that tells us where you are and where you’re going.",
-      loopSub: "The delegation loop",
+      eyebrow: "How I work",
+      title: "Two simple models do the heavy lifting.",
+      lede: "No slide deck, no abstract framework worship. I teach a loop your engineers run every day, and I show you honestly where you stand on the ladder.",
+      loopSub: "The loop I teach",
       loop: [
-        ["Spec", "Frame work so an agent can actually execute it."],
-        ["Delegate", "Decompose and hand off — to the right agent, at the right scope."],
-        ["Review", "Read agent output critically, fast, without rubber-stamping."],
+        ["Spec", "Frame the work so an agent can actually execute it."],
+        ["Delegate", "Break it down and hand off — right agent, right scope."],
+        ["Review", "Read agent output critically and fast, no rubber-stamping."],
         ["Verify", "Prove it works with tests and checks, not vibes."],
         ["Codify", "Turn what worked into shared, durable team practice."],
       ],
-      ladderSub: "The agentic maturity ladder",
+      ladderSub: "Where teams stand",
       levels: [
         ["L0", "Shadow AI", "Ad hoc, individual, invisible to the org."],
         ["L1", "Assisted", "Autocomplete everywhere, no shared workflow."],
         ["L2", "Delegated", "Agents own scoped tasks under human review."],
         ["L3", "Orchestrated", "Multi-step agentic workflows, measured and trusted."],
-        ["L4", "Agent-native", "The org is designed around agents end to end."],
+        ["L4", "Agent-native", "The team is built around agents, end to end."],
       ],
     },
     work: {
@@ -77,33 +81,35 @@ export const ui = {
       items: [
         {
           tag: "Start here",
-          name: "Agentic Readiness Audit",
+          name: "Readiness Audit",
           span: "1–2 weeks · fixed fee",
-          body: "I assess your codebase, tooling, workflows, and team. You get a scored maturity report and a prioritized roadmap — and a clear-eyed answer to “where are we actually losing the gains?”",
+          body: "I assess your codebase, tooling, workflows, and team, then hand you a scored maturity report and a prioritized roadmap — and an honest answer to “where are we actually losing the gains?”",
         },
         {
-          tag: "Core engagement",
-          name: "Team Transformation Sprint",
+          tag: "The core of it",
+          name: "Transformation Sprint",
           span: "4–8 weeks · embedded",
-          body: "I embed with your team, rebuild your agentic workflow on real work, run hands-on workshops, and install the practices that stick. We track velocity and quality before and after.",
+          body: "I embed with your team, rebuild your agentic workflow on real work, run hands-on sessions, and install the practices that stick. We measure velocity and quality before and after.",
         },
         {
-          tag: "Ongoing",
+          tag: "Staying sharp",
           name: "Fractional Advisory",
-          span: "Monthly retainer",
-          body: "Office hours, architecture reviews, and a steady hand keeping your team current as the tooling shifts under everyone’s feet — which it will, monthly.",
+          span: "Monthly",
+          body: "Office hours, architecture reviews, and a steady hand keeping your team current as the tooling shifts under everyone’s feet — which it will, every month.",
         },
       ],
     },
     about: {
-      eyebrow: "Who you’re working with",
-      title: "Agoston Fung",
-      body: "Software engineer based in London, working at the edge of agent-driven development. <strong>[Placeholder]</strong> — I’ll write this section properly once you send through your background, notable roles, and the wins you want a VP of Engineering to know about.",
+      eyebrow: "A bit about me",
+      title: "Why me",
+      body: "I’m a software engineer based in London, working at the edge of agent-driven development. <strong>[Placeholder]</strong> — send me your background, the roles that matter, and the wins you’d want a VP of Engineering to know, and I’ll write this section the way it deserves.",
     },
     contact: {
-      title: "Find out where your team actually stands.",
-      lede: "Start with a 30-minute readiness call. We’ll pinpoint where the AI gains are leaking and whether an audit makes sense.",
+      eyebrow: "Let’s talk",
+      title: "Find out where your team really stands.",
+      lede: "Book a 30-minute call with me — not a sales team. We’ll figure out where the AI gains are leaking, and whether I’m the right person to help.",
       cta: "Book a readiness call",
+      sign: "— Agoston",
     },
     footer: {
       note: "Agentic engineering, done deliberately.",
@@ -113,62 +119,64 @@ export const ui = {
   hu: {
     htmlLang: "hu",
     meta: {
-      title: "Agentic Coach — Az AI bevezetéséből mérnöki sebesség",
+      title: "Fung Ágoston — Agentikus mérnöki munka csapatoknak",
       description:
-        "A legtöbb csapat megvette az AI-eszközöket, de a sebességmutató nem mozdult. Segítek a mérnöki szervezeteknek áthidalni a szakadékot az AI bevezetése és a valódi, mérhető hatás között.",
+        "Segítek a mérnöki csapatoknak a már megvásárolt AI-eszközöket mérhető sebességgé alakítani.",
     },
     nav: {
-      problem: "A probléma",
-      method: "A módszer",
+      problem: "Amit látok",
+      method: "Hogyan dolgozom",
       work: "Együttműködés",
-      cta: "Foglalj felmérő hívást",
+      cta: "Foglalj hívást",
     },
     hero: {
-      eyebrow: "Agentikus mérnöki munka csapatoknak",
-      line1: "A csapatod bevezette az AI-t.",
-      line2: "A sebesség mégsem nőtt.",
-      line3: "Ezt megoldom.",
-      lede: "A legtöbb mérnöki szervezet megvette az eszközöket, de soha nem változtatott azon, ahogyan dolgozik. Segítek a csapatoknak áthidalni a szakadékot az AI <em>bevezetése</em> és a valódi, <em>mérhető</em> hatás között — a sebességet és a minőséget igazoló adatokkal.",
+      eyebrow: "Agentikus mérnöki munka · London",
+      headline:
+        "Segítek a mérnöki csapatoknak a már megvásárolt AI-eszközöket <mark>mérhető</mark> sebességgé alakítani.",
+      subhead:
+        "Ágoston vagyok. Néhány hetet a csapatoddal töltök beágyazva, újraépítem, ahogyan a kódoló ágensekkel dolgoztok, és gyorsabban hagylak ott — adatokkal igazolva.",
       ctaPrimary: "Foglalj felmérő hívást",
-      ctaSecondary: "Nézd meg a módszert",
+      ctaSecondary: "Nézd meg, hogyan dolgozom",
+      sign: "Ágoston",
+      portraitCaption: "Fung Ágoston — London",
     },
     problem: {
-      eyebrow: "A probléma",
-      title: "Az eszközök megérkeztek. Az átalakulás nem.",
+      eyebrow: "Amit általában találok",
+      title: "Az eszközök megérkeztek. A változás nem.",
       items: [
         {
-          title: "A bevezetés nem egyenlő a hatással",
-          body: "Minden fejlesztőnél fut a Copilot vagy a Cursor. A sebességmutató pontosan úgy néz ki, mint tavaly. Az eszközöket megvettétek; a munkafolyamat sosem változott.",
+          title: "Eszköz mindenhol, nyereség sehol",
+          body: "Mindenkinél fut a Copilot vagy a Cursor. A sebességmutató olyan, mint tavaly. Az eszközöket megvettétek; senki sem változtatott azon, ahogy a csapat valójában dolgozik.",
         },
         {
-          title: "A minőség elsodródik",
-          body: "Az AI által generált kód gyorsabban érkezik, mint ahogy bárki rendesen át tudná nézni. Apró hibák, következetlen minták és átnézési fáradtság szivárog be észrevétlenül.",
+          title: "A minőség csendben csúszik",
+          body: "Az ágens kódja gyorsabban érkezik, mint ahogy bárki rendesen átnézhetné. Apró hibák és következetlen minták gyűlnek pont ott, ahová senki sem néz.",
         },
         {
-          title: "Mindenki improvizál",
-          body: "A legjobb mérnökeid kitalálták a saját privát trükkjeiket. Ebből semmi sincs megosztva, megmérve vagy megismételhetővé téve a csapatban.",
+          title: "A legjobbak egyedül improvizálnak",
+          body: "A legerősebb mérnökeidnek vannak privát trükkjeik, amelyek valóban működnek. Ebből semmi sincs leírva, megmérve vagy megosztva a csapat többi részével.",
         },
       ],
     },
     method: {
-      eyebrow: "A módszer",
-      title: "Megismételhető rendszer, nem lelkesítő beszéd.",
-      lede: "Minden együttműködés két egyszerű modellre épül: egy hurokra, amelyet a mérnökeid naponta futtatnak, és egy érettségi létrára, amely megmutatja, hol tartotok és merre tartotok.",
-      loopSub: "A delegálási hurok",
+      eyebrow: "Hogyan dolgozom",
+      title: "Két egyszerű modell végzi a nehéz munkát.",
+      lede: "Nincs diavetítés, nincs absztrakt keretrendszer-imádat. Megtanítok egy hurkot, amelyet a mérnökeid naponta futtatnak, és őszintén megmutatom, hol álltok a létrán.",
+      loopSub: "A hurok, amit tanítok",
       loop: [
         ["Specifikálás", "Úgy fogalmazd meg a feladatot, hogy egy ágens valóban végre tudja hajtani."],
-        ["Delegálás", "Bontsd fel és add át — a megfelelő ágensnek, a megfelelő léptékben."],
+        ["Delegálás", "Bontsd fel és add át — megfelelő ágens, megfelelő lépték."],
         ["Átnézés", "Olvasd kritikusan és gyorsan az ágens kimenetét, gumibélyegző nélkül."],
         ["Ellenőrzés", "Bizonyítsd tesztekkel és ellenőrzésekkel, hogy működik — ne megérzésből."],
         ["Rögzítés", "Alakítsd a bevált megoldásokat közös, tartós csapatgyakorlattá."],
       ],
-      ladderSub: "Az agentikus érettségi létra",
+      ladderSub: "Hol tartanak a csapatok",
       levels: [
         ["L0", "Árnyék-AI", "Eseti, egyéni, a szervezet számára láthatatlan."],
         ["L1", "Támogatott", "Mindenhol automatikus kiegészítés, közös munkafolyamat nélkül."],
         ["L2", "Delegált", "Az ágensek behatárolt feladatokat birtokolnak emberi felügyelet mellett."],
         ["L3", "Vezényelt", "Többlépéses agentikus munkafolyamatok, mérve és megbízva."],
-        ["L4", "Ágens-natív", "A szervezet az ágensek köré van tervezve, elejétől a végéig."],
+        ["L4", "Ágens-natív", "A csapat az ágensek köré épül, elejétől a végéig."],
       ],
     },
     work: {
@@ -177,33 +185,35 @@ export const ui = {
       items: [
         {
           tag: "Itt kezdd",
-          name: "Agentikus felkészültségi audit",
+          name: "Felkészültségi audit",
           span: "1–2 hét · fix díj",
-          body: "Felmérem a kódbázisotokat, az eszközeiteket, a munkafolyamataitokat és a csapatot. Kaptok egy pontozott érettségi jelentést és egy priorizált ütemtervet — és egy tiszta választ arra, hogy „hol veszítjük el valójában a nyereséget?”",
+          body: "Felmérem a kódbázist, az eszközöket, a munkafolyamatokat és a csapatot, majd átadok egy pontozott érettségi jelentést és egy priorizált ütemtervet — és egy őszinte választ arra, hogy „hol veszítjük el valójában a nyereséget?”",
         },
         {
-          tag: "Fő együttműködés",
-          name: "Csapatátalakító sprint",
+          tag: "A lényeg",
+          name: "Átalakító sprint",
           span: "4–8 hét · beágyazott",
-          body: "Beágyazódom a csapatba, valós munkán építem újra az agentikus munkafolyamatot, gyakorlati workshopokat tartok, és beépítem a tartósan megmaradó gyakorlatokat. A sebességet és a minőséget előtte-utána mérjük.",
+          body: "Beágyazódom a csapatba, valós munkán építem újra az agentikus munkafolyamatot, gyakorlati alkalmakat tartok, és beépítem a megmaradó gyakorlatokat. A sebességet és a minőséget előtte-utána mérjük.",
         },
         {
-          tag: "Folyamatos",
+          tag: "Naprakészen",
           name: "Frakcionált tanácsadás",
-          span: "Havi díjas",
-          body: "Fogadóórák, architektúra-átnézések és egy biztos kéz, amely naprakészen tartja a csapatot, miközben az eszközök folyamatosan változnak mindenki lába alatt — márpedig változni fognak, havonta.",
+          span: "Havonta",
+          body: "Fogadóórák, architektúra-átnézések és egy biztos kéz, amely naprakészen tartja a csapatot, miközben az eszközök folyamatosan változnak mindenki lába alatt — márpedig változni fognak, minden hónapban.",
         },
       ],
     },
     about: {
-      eyebrow: "Kivel dolgozol együtt",
-      title: "Fung Ágoston",
-      body: "Londonban élő szoftvermérnök, aki az ágensvezérelt fejlesztés élvonalában dolgozik. <strong>[Helykitöltő]</strong> — ezt a részt rendesen megírom, amint elküldöd a hátteredet, a jelentős szerepeidet és azokat az eredményeket, amelyekről egy mérnöki vezetőnek tudnia kell.",
+      eyebrow: "Pár szó rólam",
+      title: "Miért én",
+      body: "Londonban élő szoftvermérnök vagyok, aki az ágensvezérelt fejlesztés élvonalában dolgozik. <strong>[Helykitöltő]</strong> — küldd el a hátteredet, a fontos szerepeket és azokat az eredményeket, amelyekről egy mérnöki vezetőnek tudnia kell, és úgy írom meg ezt a részt, ahogy megérdemli.",
     },
     contact: {
+      eyebrow: "Beszéljünk",
       title: "Tudd meg, hol tart valójában a csapatod.",
-      lede: "Kezdd egy 30 perces felmérő hívással. Megtaláljuk, hol szivárog el az AI-nyereség, és hogy van-e értelme egy auditnak.",
+      lede: "Foglalj egy 30 perces hívást velem — nem egy értékesítési csapattal. Kiderítjük, hol szivárog el az AI-nyereség, és hogy én vagyok-e a megfelelő ember a segítségre.",
       cta: "Foglalj felmérő hívást",
+      sign: "— Ágoston",
     },
     footer: {
       note: "Agentikus mérnöki munka, tudatosan.",

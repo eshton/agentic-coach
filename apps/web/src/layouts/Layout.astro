@@ -6,9 +6,9 @@ interface Props {
 }
 
 const {
-  title = "Agentic Coach — Turn AI adoption into engineering velocity",
+  title = "Agoston Fung — Agentic engineering for teams",
   description =
-    "Most teams bought the AI tools but never moved the velocity chart. I help engineering organizations close the gap between AI adoption and real, measurable impact.",
+    "I help engineering teams turn the AI tools they already bought into velocity they can measure.",
   lang = "en",
 } = Astro.props;
 ---
@@ -24,6 +24,12 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
   </head>
   <body>
@@ -33,16 +39,25 @@ const {
 
 <style is:global>
   :root {
-    --bg: #0a0c11;
-    --bg-soft: #11141c;
-    --surface: #151926;
-    --border: rgba(255, 255, 255, 0.09);
-    --fg: #eef0f5;
-    --muted: #9aa2b1;
-    --faint: #6b7385;
-    --accent: #6d9eff;
-    --accent-2: #9b7dff;
-    --max: 72rem;
+    --ground: #f7f4ed;
+    --surface: #ffffff;
+    --surface-2: #fffdf8;
+    --text: #20303a;
+    --muted: #5e6f76;
+    --faint: #8a969b;
+    --accent: #0e5c57;
+    --accent-ink: #0b4a46;
+    --highlight: #ffd23f;
+    --border: rgba(32, 48, 58, 0.13);
+    --dark: #16252b;
+
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas,
+      monospace;
+    --font-sign: "Caveat", ui-rounded, cursive;
+
+    --max: 70rem;
     --pad: clamp(1.25rem, 4vw, 2.5rem);
   }
 
@@ -61,20 +76,22 @@ const {
   }
 
   body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family:
-      ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-      Arial, sans-serif;
-    line-height: 1.6;
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1.075rem;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
   h2,
   h3 {
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    font-weight: 700;
     margin: 0;
   }
 
@@ -83,7 +100,7 @@ const {
   }
 
   a {
-    color: inherit;
+    color: var(--accent);
   }
 
   .container {
@@ -94,39 +111,93 @@ const {
   }
 
   .eyebrow {
+    font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.78rem;
-    font-weight: 600;
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+    font-weight: 500;
     color: var(--accent);
+  }
+
+  /* Highlighter-marker swipe behind key phrases. */
+  mark {
+    background: transparent;
+    color: inherit;
+    position: relative;
+    white-space: nowrap;
+  }
+  mark::before {
+    content: "";
+    position: absolute;
+    inset: 0.08em -0.18em 0.06em -0.18em;
+    background: linear-gradient(
+      100deg,
+      rgba(255, 210, 63, 0.85),
+      rgba(255, 210, 63, 0.62)
+    );
+    transform: rotate(-0.7deg);
+    transform-origin: left center;
+    border-radius: 2px;
+    z-index: -1;
+    animation: swipe 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) 0.35s both;
+  }
+
+  @keyframes swipe {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
   }
 
   .btn {
     display: inline-block;
-    padding: 0.8rem 1.4rem;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    color: var(--fg);
-    text-decoration: none;
+    font-family: var(--font-display);
     font-weight: 600;
+    font-size: 1rem;
+    padding: 0.72rem 1.35rem;
+    border-radius: 9px;
+    border: 1.5px solid var(--text);
+    color: var(--text);
+    text-decoration: none;
     transition:
       transform 0.15s ease,
-      border-color 0.15s ease,
-      background 0.15s ease;
+      background 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
   }
-
   .btn:hover {
     transform: translateY(-2px);
-    border-color: var(--accent);
   }
-
   .btn.primary {
     background: var(--accent);
-    color: #06080d;
     border-color: var(--accent);
+    color: #fbfdfb;
+  }
+  .btn.primary:hover {
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
   }
 
-  .btn.primary:hover {
-    background: #82adff;
+  :focus-visible {
+    outline: 2.5px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    mark::before {
+      animation: none;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 </style>

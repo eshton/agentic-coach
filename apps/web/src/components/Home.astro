@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { ui, brand, type Lang } from "../i18n/ui";
+import { ui, brand, monogram, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
@@ -9,14 +9,12 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 
-// English serves from "/", Hungarian from "/hu/".
 const homePath = lang === "en" ? "/" : "/hu/";
 const altLang: Lang = lang === "en" ? "hu" : "en";
 const altPath = altLang === "en" ? "/" : "/hu/";
 ---
 
 <Layout title={t.meta.title} description={t.meta.description} lang={t.htmlLang}>
-  <!-- Nav -->
   <header class="nav">
     <div class="container nav-inner">
       <a class="brand" href={homePath}>{brand}</a>
@@ -25,8 +23,9 @@ const altPath = altLang === "en" ? "/" : "/hu/";
         <a href="#method">{t.nav.method}</a>
         <a href="#work">{t.nav.work}</a>
       </nav>
-      <div class="lang-switch" aria-label="Language">
-        <span class="lang-current">{lang.toUpperCase()}</span>
+      <div class="lang-switch">
+        <span aria-current="true">{lang.toUpperCase()}</span>
+        <span class="sep">/</span>
         <a href={altPath} hreflang={altLang}>{altLang.toUpperCase()}</a>
       </div>
       <a class="btn primary nav-cta" href="#contact">{t.nav.cta}</a>
@@ -36,26 +35,35 @@ const altPath = altLang === "en" ? "/" : "/hu/";
   <main>
     <!-- Hero -->
     <section class="hero">
-      <div class="container">
-        <p class="eyebrow">{t.hero.eyebrow}</p>
-        <h1>
-          {t.hero.line1}<br />{t.hero.line2}<br />
-          <span class="grad">{t.hero.line3}</span>
-        </h1>
-        <p class="lede" set:html={t.hero.lede} />
-        <div class="cta-row">
-          <a class="btn primary" href="#contact">{t.hero.ctaPrimary}</a>
-          <a class="btn" href="#method">{t.hero.ctaSecondary}</a>
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">{t.hero.eyebrow}</p>
+          <h1 set:html={t.hero.headline} />
+          <p class="subhead">{t.hero.subhead}</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#contact">{t.hero.ctaPrimary}</a>
+            <a class="btn" href="#method">{t.hero.ctaSecondary}</a>
+          </div>
+          <p class="sign" aria-hidden="true">{t.hero.sign}</p>
         </div>
+        <figure class="portrait">
+          <!-- Replace the placeholder block below with a real photo:
+               drop agoston.jpg in apps/web/public/ and swap in:
+               <img src="/agoston.jpg" alt={t.hero.portraitCaption} /> -->
+          <div class="portrait-frame">
+            <span class="portrait-monogram">{monogram}</span>
+          </div>
+          <figcaption>{t.hero.portraitCaption}</figcaption>
+        </figure>
       </div>
     </section>
 
     <!-- Problem -->
-    <section id="problem" class="section">
+    <section id="problem" class="band">
       <div class="container">
         <p class="eyebrow">{t.problem.eyebrow}</p>
-        <h2 class="section-title">{t.problem.title}</h2>
-        <div class="grid-3">
+        <h2 class="band-title">{t.problem.title}</h2>
+        <div class="cards">
           {
             t.problem.items.map((p) => (
               <article class="card">
@@ -69,18 +77,18 @@ const altPath = altLang === "en" ? "/" : "/hu/";
     </section>
 
     <!-- Method -->
-    <section id="method" class="section alt">
+    <section id="method" class="band tinted">
       <div class="container">
         <p class="eyebrow">{t.method.eyebrow}</p>
-        <h2 class="section-title">{t.method.title}</h2>
-        <p class="section-lede">{t.method.lede}</p>
+        <h2 class="band-title">{t.method.title}</h2>
+        <p class="band-lede">{t.method.lede}</p>
 
         <h3 class="sub">{t.method.loopSub}</h3>
         <ol class="loop">
           {
             t.method.loop.map(([step, desc], i) => (
               <li class="loop-step">
-                <span class="loop-num">{i + 1}</span>
+                <span class="loop-num">{String(i + 1).padStart(2, "0")}</span>
                 <span class="loop-name">{step}</span>
                 <span class="loop-desc">{desc}</span>
               </li>
@@ -91,10 +99,10 @@ const altPath = altLang === "en" ? "/" : "/hu/";
         <h3 class="sub">{t.method.ladderSub}</h3>
         <div class="ladder">
           {
-            t.method.levels.map(([lvl, name, desc]) => (
-              <div class="rung">
+            t.method.levels.map(([lvl, name, desc], i) => (
+              <div class="rung" style={`--i:${i}`}>
                 <span class="rung-lvl">{lvl}</span>
-                <div>
+                <div class="rung-body">
                   <strong>{name}</strong>
                   <p>{desc}</p>
                 </div>
@@ -106,11 +114,11 @@ const altPath = altLang === "en" ? "/" : "/hu/";
     </section>
 
     <!-- Engagements -->
-    <section id="work" class="section">
+    <section id="work" class="band">
       <div class="container">
         <p class="eyebrow">{t.work.eyebrow}</p>
-        <h2 class="section-title">{t.work.title}</h2>
-        <div class="grid-3">
+        <h2 class="band-title">{t.work.title}</h2>
+        <div class="cards">
           {
             t.work.items.map((e) => (
               <article class="card engagement">
@@ -126,24 +134,33 @@ const altPath = altLang === "en" ? "/" : "/hu/";
     </section>
 
     <!-- About -->
-    <section id="about" class="section alt">
-      <div class="container about">
-        <p class="eyebrow">{t.about.eyebrow}</p>
-        <h2 class="section-title">{t.about.title}</h2>
-        <p class="section-lede" set:html={t.about.body} />
+    <section id="about" class="band tinted">
+      <div class="container about-inner">
+        <figure class="portrait small">
+          <div class="portrait-frame">
+            <span class="portrait-monogram">{monogram}</span>
+          </div>
+        </figure>
+        <div>
+          <p class="eyebrow">{t.about.eyebrow}</p>
+          <h2 class="band-title">{t.about.title}</h2>
+          <p class="band-lede" set:html={t.about.body} />
+        </div>
       </div>
     </section>
 
-    <!-- Contact / CTA -->
-    <section id="contact" class="section cta-section">
-      <div class="container">
-        <h2 class="section-title">{t.contact.title}</h2>
-        <p class="section-lede center">{t.contact.lede}</p>
+    <!-- Contact -->
+    <section id="contact" class="band contact">
+      <div class="container contact-inner">
+        <p class="eyebrow">{t.contact.eyebrow}</p>
+        <h2 class="band-title">{t.contact.title}</h2>
+        <p class="band-lede center">{t.contact.lede}</p>
         <div class="cta-row center">
           <a class="btn primary" href="mailto:afung@ancestralize.com"
             >{t.contact.cta}</a
           >
         </div>
+        <p class="sign" aria-hidden="true">{t.contact.sign}</p>
       </div>
     </section>
   </main>
@@ -157,48 +174,56 @@ const altPath = altLang === "en" ? "/" : "/hu/";
 </Layout>
 
 <style>
-  /* Nav */
+  /* ---- Nav ---- */
   .nav {
     position: sticky;
     top: 0;
     z-index: 10;
-    backdrop-filter: blur(10px);
-    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    height: 4rem;
+    height: 4.25rem;
   }
   .brand {
-    font-weight: 700;
-    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
     letter-spacing: -0.01em;
+    color: var(--text);
+    text-decoration: none;
   }
   .nav-links {
     display: flex;
     gap: 1.5rem;
     margin-left: auto;
-    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
   .nav-links a {
     color: var(--muted);
     text-decoration: none;
   }
   .nav-links a:hover {
-    color: var(--fg);
+    color: var(--accent);
   }
   .lang-switch {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--faint);
   }
-  .lang-switch .lang-current {
-    color: var(--fg);
+  .lang-switch [aria-current] {
+    color: var(--text);
+    font-weight: 600;
   }
   .lang-switch a {
     color: var(--faint);
@@ -208,43 +233,30 @@ const altPath = altLang === "en" ? "/" : "/hu/";
     color: var(--accent);
   }
   .nav-cta {
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.92rem;
   }
 
-  /* Hero */
+  /* ---- Hero ---- */
   .hero {
-    padding: clamp(4rem, 12vw, 8rem) 0 clamp(3rem, 8vw, 6rem);
-    background:
-      radial-gradient(
-        60rem 30rem at 70% -10%,
-        rgba(109, 158, 255, 0.16),
-        transparent 60%
-      ),
-      radial-gradient(
-        40rem 24rem at 0% 10%,
-        rgba(155, 125, 255, 0.12),
-        transparent 55%
-      );
+    padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: center;
   }
   .hero h1 {
-    font-size: clamp(2.4rem, 6.5vw, 4.25rem);
-    margin: 0.75rem 0 1.25rem;
+    font-size: clamp(2.3rem, 5.2vw, 3.9rem);
+    font-weight: 800;
+    margin: 0.9rem 0 1.4rem;
+    max-width: 18ch;
   }
-  .grad {
-    background: linear-gradient(120deg, #fff, var(--accent) 60%, var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .lede {
-    max-width: 40rem;
+  .subhead {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
     color: var(--muted);
-    font-size: 1.15rem;
-  }
-  .lede :global(em) {
-    color: var(--fg);
-    font-style: normal;
-    font-weight: 600;
+    max-width: 38ch;
   }
   .cta-row {
     display: flex;
@@ -255,168 +267,257 @@ const altPath = altLang === "en" ? "/" : "/hu/";
   .cta-row.center {
     justify-content: center;
   }
+  .sign {
+    font-family: var(--font-sign);
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--accent);
+    margin-top: 1.6rem;
+  }
 
-  /* Sections */
-  .section {
-    padding: clamp(3.5rem, 9vw, 6.5rem) 0;
+  /* ---- Portrait ---- */
+  .portrait {
+    margin: 0;
+    text-align: center;
+  }
+  .portrait-frame {
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background:
+      radial-gradient(120% 90% at 30% 20%, #fff, transparent 60%),
+      linear-gradient(160deg, #eef3ef, #e7ded0);
+    display: grid;
+    place-items: center;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 18px 40px -24px rgba(32, 48, 58, 0.45);
+    overflow: hidden;
+  }
+  .portrait-frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .portrait-monogram {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3rem, 7vw, 5rem);
+    color: var(--accent);
+    opacity: 0.85;
+  }
+  .portrait figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-top: 0.8rem;
+  }
+  .portrait.small {
+    max-width: 13rem;
+  }
+
+  /* ---- Bands (sections) ---- */
+  .band {
+    padding: clamp(3.25rem, 8vw, 6rem) 0;
     border-top: 1px solid var(--border);
   }
-  .section.alt {
-    background: var(--bg-soft);
+  .band.tinted {
+    background: var(--surface-2);
   }
-  .section-title {
-    font-size: clamp(1.7rem, 4vw, 2.6rem);
-    margin: 0.6rem 0 0;
+  .band-title {
+    font-size: clamp(1.7rem, 3.6vw, 2.7rem);
+    font-weight: 700;
+    margin: 0.55rem 0 0;
+    max-width: 20ch;
   }
-  .section-lede {
+  .band-lede {
+    font-size: 1.15rem;
     color: var(--muted);
-    font-size: 1.1rem;
-    max-width: 44rem;
-    margin-top: 1rem;
+    max-width: 46ch;
+    margin-top: 1.1rem;
   }
-  .section-lede :global(strong) {
-    color: var(--fg);
+  .band-lede :global(strong) {
+    color: var(--text);
+    font-weight: 600;
   }
-  .section-lede.center {
+  .band-lede.center {
     margin-inline: auto;
     text-align: center;
   }
 
-  /* Cards */
-  .grid-3 {
+  /* ---- Cards ---- */
+  .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: 1.25rem;
+    gap: 1.1rem;
     margin-top: 2.5rem;
   }
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 1.5rem;
+    padding: 1.6rem;
   }
   .card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.6rem;
+    font-size: 1.22rem;
+    margin-bottom: 0.55rem;
   }
   .card p {
     color: var(--muted);
+    font-size: 1.02rem;
   }
   .engagement .tag {
     display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--accent);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.7rem;
   }
   .engagement .span {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--faint);
-    font-size: 0.9rem;
-    margin: 0.25rem 0 0.9rem;
+    margin: 0.2rem 0 0.85rem;
   }
 
-  /* Loop */
+  /* ---- Sub-heading ---- */
   .sub {
-    font-size: 1.05rem;
-    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
+    color: var(--faint);
     margin: 3rem 0 1.25rem;
+    font-weight: 500;
   }
+
+  /* ---- Loop ---- */
   .loop {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-    gap: 1rem;
+    gap: 0.9rem;
   }
   .loop-step {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 1.25rem;
+    padding: 1.3rem;
     display: grid;
     gap: 0.35rem;
   }
   .loop-num {
-    width: 1.9rem;
-    height: 1.9rem;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: rgba(109, 158, 255, 0.15);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--accent);
-    font-weight: 700;
-    font-size: 0.9rem;
+    font-weight: 500;
   }
   .loop-name {
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 1.12rem;
   }
   .loop-desc {
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.98rem;
   }
 
-  /* Ladder */
+  /* ---- Ladder ---- */
   .ladder {
     display: grid;
-    gap: 0.6rem;
+    gap: 0.55rem;
   }
   .rung {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.1rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 1rem 1.25rem;
+    /* each rung steps further right to read as an ascending ladder */
+    margin-left: calc(var(--i) * clamp(0px, 2.2vw, 28px));
   }
   .rung-lvl {
-    font-weight: 800;
+    font-family: var(--font-mono);
+    font-weight: 700;
     color: var(--accent);
-    min-width: 2rem;
+    min-width: 2.2rem;
+    padding-top: 0.15rem;
   }
-  .rung strong {
+  .rung-body strong {
+    font-family: var(--font-display);
+    font-weight: 700;
     display: block;
   }
-  .rung p {
+  .rung-body p {
     color: var(--muted);
-    font-size: 0.95rem;
-    margin-top: 0.15rem;
+    font-size: 0.98rem;
+    margin-top: 0.1rem;
   }
 
-  /* CTA + footer */
-  .cta-section {
+  /* ---- About ---- */
+  .about-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  /* ---- Contact ---- */
+  .contact {
     text-align: center;
-    background:
-      radial-gradient(
-        50rem 24rem at 50% 120%,
-        rgba(155, 125, 255, 0.14),
-        transparent 60%
-      );
   }
-  .cta-section .section-title {
-    max-width: 36rem;
+  .contact .band-title {
     margin-inline: auto;
+    max-width: 24ch;
   }
+  .contact .sign {
+    margin-top: 1.2rem;
+  }
+
+  /* ---- Footer ---- */
   .footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 0;
+    background: var(--dark);
+    color: #c9d3d3;
+    padding: 2.25rem 0;
   }
   .footer-inner {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
-    color: var(--faint);
-    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
   }
 
-  @media (max-width: 720px) {
+  /* ---- Responsive ---- */
+  @media (max-width: 800px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .portrait {
+      order: -1;
+      max-width: 15rem;
+      margin-inline: auto;
+    }
+    .about-inner {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+    .about-inner .band-lede {
+      margin-inline: auto;
+    }
+  }
+  @media (max-width: 640px) {
     .nav-links {
       display: none;
     }
