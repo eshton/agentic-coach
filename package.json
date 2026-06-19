@@ -1,0 +1,16 @@
+{
+  "name": "agentic-coach",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @agentic-coach/web dev",
+    "build": "pnpm -r build",
+    "preview": "pnpm --filter @agentic-coach/web preview",
+    "check": "pnpm -r check"
+  }
+}
