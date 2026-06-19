@@ -1,0 +1,21 @@
+# Netlify build configuration for the pnpm monorepo.
+# Build runs from the repo root so pnpm can resolve the workspace,
+# then we publish the Astro app's static output.
+
+[build]
+  command = "pnpm --filter @agentic-coach/web build"
+  publish = "apps/web/dist"
+
+[build.environment]
+  # Pin toolchain so local and CI builds match.
+  NODE_VERSION = "22"
+  PNPM_VERSION = "10.33.0"
+
+# SPA-style fallback is unnecessary for a static multi-page site,
+# but the security headers below apply to every response.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
